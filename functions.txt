@@ -122,11 +122,11 @@ Upon successful completion, a value of 0 is returned.  Otherwise, a value of -1 
 
 stat        int stat(const char *restrict path, struct stat *restrict buf);
 
-The stat() function obtains information about the file pointed to by path.  Read, write or execute permission of the named file is not required, but all
+The stat() function obtains information about the file pointed to by [path].  Read, write or execute permission of the named file is not required, but all
 directories listed in the path name leading to the file must be searchable.
-Upon successful completion a value of 0 is returned.  Otherwise, a value of -1 is returned and errno is set to indicate the error.
+Upon successful completion a value of 0 is returned.  Otherwise, a value of -1 is returned and [errno] is set to indicate the error.
 
-The buf argument is a pointer to a stat structure as defined by <sys/stat.h> and into which information is placed concerning the file.
+The [buf] argument is a pointer to a [stat] structure as defined by <sys/stat.h> and into which information is placed concerning the file.
     struct stat { /* when _DARWIN_FEATURE_64_BIT_INODE is defined */
         dev_t           st_dev;           /* ID of device containing file */
         mode_t          st_mode;          /* Mode of file (see below) */
@@ -148,7 +148,7 @@ The buf argument is a pointer to a stat structure as defined by <sys/stat.h> and
         int64_t         st_qspare[2];     /* RESERVED: DO NOT USE! */
     };
 
-The time-related fields of struct stat are as follows:
+The time-related fields of [struct stat] are as follows:
     st_atime        Time when file data last accessed.  Changed by the mknod(2), utimes(2) and read(2) system calls.
 
     st_mtime        Time when file data last modified.  Changed by the mknod(2), utimes(2) and write(2) system calls.
@@ -205,32 +205,81 @@ _STRUCT_TIMESPEC
 lstat       int lstat(const char *restrict path, struct stat *restrict buf);
 
 The lstat() function is like stat() except in the case where the named file is a symbolic link; lstat() returns information about the link, while stat()
-returns information about the file the link references.  For symbolic links, the st_mode member contains meaningful information when used with the file type
+returns information about the file the link references. For symbolic links, the st_mode member contains meaningful information when used with the file type
 macros, and the st_size member contains the length of the pathname contained in the symbolic link. File mode bits and the contents of the remaining members
 of the stat structure are unspecified. The value returned in the st_size member is the length of the contents of the symbolic link, and does not count any
 trailing null.
-Upon successful completion a value of 0 is returned.  Otherwise, a value of -1 is returned and errno is set to indicate the error.
+Upon successful completion a value of 0 is returned. Otherwise, a value of -1 is returned and [errno] is set to indicate the error.
 
 
 fstat       int fstat(int fildes, struct stat *buf);
 
+The fstat() obtains the same information about an open file known by the file descriptor fildes.
+Upon successful completion a value of 0 is returned. Otherwise, a value of -1 is returned and [errno] is set to indicate the error.
+
 
 fork        pid_t fork(void);
+
+fork() causes creation of a new process. The new process (child process) is an exact copy of the calling process (parent process) except for the following:
+- The child process has a unique process ID.
+- The child process has a different parent process ID (i.e., the process ID of the parent process).
+- The child process has its own copy of the parent's descriptors. These descriptors reference the same underlying objects, so that, for instance,
+	file pointers in file objects are shared between the child and the parent, so that an lseek(2) on a descriptor in the child process can affect a
+	subsequent read or write by the parent. This descriptor copying is also used by the shell to establish standard input and output for newly created
+	processes as well as to set up pipes.
+- The child processes resource utilizations are set to 0; see setrlimit(2).
+Upon successful completion, fork() returns a value of 0 to the child process and returns the process ID of the child process to the parent process.
+Otherwise, a value of -1 is returned to the parent process, no child process is created, and the global variable [errno] is set to indicate the error.
 
 
 execve      int execve(const char *path, char *const argv[], char *const envp[]);
 
+execve() transforms the calling process into a new process. The new process is constructed from an ordinary file, whose name is pointed to by path, called
+the new process file. This file is either an executable object file, or a file of data for an interpreter.
+As the execve() function overlays the current process image with a new process image, the successful call has no process to return to. If execve() does
+return to the calling process, an error has occurred; the return value will be -1 and the global variable errno is set to indicate the error.
+
 
 wait        pid_t wait(inst *stat_loc);
 
+The wait() function suspends execution of its calling process until [stat_loc] information is available for a terminated child process, or a signal is
+received. On return from a successful wait() call, the [stat_loc] area contains termination information about the process that exited as defined below.
+
 
 waitpid     pid_t waitpid(pid_t pid, int *stat_loc, int options);
-
-
 wait3       pid_t wait3(int *stat_loc, int options, struct rusage *rusage);
-
-
 wait4       pid_t wait4(pid_t pid, int *stat_loc, int options, struct rusage *rusage);
+
+The wait4() call provides a more general interface for programs that need to wait for certain child processes, that need resource utilization statistics
+accumulated by child processes, or that require options.  The other wait functions are implemented using wait4().
+
+The [pid] parameter specifies the set of child processes for which to wait.  If [pid] is -1, the call waits for any child process.  If [pid] is 0, the call
+waits for any child process in the process group of the caller. If [pid] is greater than zero, the call waits for the process with process id [pid].  If [pid]
+is less than -1, the call waits for any process whose process group id equals the absolute value of [pid].
+
+The [stat_loc] parameter is defined below. The [options] parameter contains the bitwise OR of any of the following options. The WNOHANG option is used to
+indicate that the call should not block if there are no processes that wish to report status. If the WUNTRACED option is set, children of the current process
+that are stopped due to a SIGTTIN, SIGTTOU, SIGTSTP, or SIGSTOP signal also have their status reported.
+
+If [rusage] is non-zero, a summary of the resources used by the terminated process and all its children is returned (this information is currently not
+available for stopped processes).
+
+When the WNOHANG option is specified and no processes wish to report status, wait4() returns a process id of 0.
+
+The waitpid() call is identical to wait4() with an [rusage] value of zero. The older wait3() call is the same as wait4() with a [pid] value of -1.
+
+The following macros may be used to test the manner of exit of the process.  One of the first three macros will evaluate to a non-zero (true) value:
+WIFEXITED(status):		True if the process terminated normally by a call to _exit(2) or exit(3).
+WIFSIGNALED(status):	True if the process terminated due to receipt of a signal.
+WIFSTOPPED(status):		True if the process has not terminated, but has stopped and can be restarted.  This macro can be true only if the wait call specified
+							the WUNTRACED option or if the child process is being traced (see ptrace(2)).
+
+Depending on the values of those macros, the following macros produce the remaining status information about the child process:
+WEXITSTATUS(status):	If WIFEXITED(status) is true, evaluates to the low-order 8 bits of the argument passed to _exit(2) or exit(3) by the child.
+WTERMSIG(status):		If WIFSIGNALED(status) is true, evaluates to the number of the signal that caused the termination of the process.
+WCOREDUMP(status):		If WIFSIGNALED(status) is true, evaluates as true if the termination of the process was accompanied by the creation of a core file
+							containing an image of the process when the signal was received.
+WSTOPSIG(status):		If WIFSTOPPED(status) is true, evaluates to the number of the signal that caused the process to stop.
 
 
 signal      sig_t signal(int sig, sig_t func);
