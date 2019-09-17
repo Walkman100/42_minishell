@@ -15,7 +15,7 @@ lstat       int lstat(const char *restrict path, struct stat *restruct buf);
 fstat       int fstat(int fildes, struct stat *buf);
 fork        pid_t fork(void);
 execve      int execve(const char *path, char *const argv[], char *const envp[]);
-wait        pid_t wait(inst *stat_loc);
+wait        pid_t wait(int *stat_loc);
 waitpid     pid_t waitpid(pid_t pid, int *stat_loc, int options);
 wait3       pid_t wait3(int *stat_loc, int options, struct rusage *rusage);
 wait4       pid_t wait4(pid_t pid, int *stat_loc, int options, struct rusage *rusage);
@@ -240,10 +240,12 @@ As the execve() function overlays the current process image with a new process i
 return to the calling process, an error has occurred; the return value will be -1 and the global variable errno is set to indicate the error.
 
 
-wait        pid_t wait(inst *stat_loc);
+wait        pid_t wait(int *stat_loc);
 
 The wait() function suspends execution of its calling process until [stat_loc] information is available for a terminated child process, or a signal is
 received. On return from a successful wait() call, the [stat_loc] area contains termination information about the process that exited as defined below.
+If wait() returns due to a stopped or terminated child process, the process ID of the child is returned to the calling process. Otherwise, a value of -1 is
+returned and errno is set to indicate the error.
 
 
 waitpid     pid_t waitpid(pid_t pid, int *stat_loc, int options);
@@ -268,6 +270,7 @@ When the WNOHANG option is specified and no processes wish to report status, wai
 
 The waitpid() call is identical to wait4() with an [rusage] value of zero. The older wait3() call is the same as wait4() with a [pid] value of -1.
 
+(stat_loc functions)
 The following macros may be used to test the manner of exit of the process. One of the first three macros will evaluate to a non-zero (true) value:
 WIFEXITED(status):      True if the process terminated normally by a call to _exit(2) or exit(3).
 WIFSIGNALED(status):    True if the process terminated due to receipt of a signal.
@@ -280,6 +283,30 @@ WTERMSIG(status):       If WIFSIGNALED(status) is true, evaluates to the number 
 WCOREDUMP(status):      If WIFSIGNALED(status) is true, evaluates as true if the termination of the process was accompanied by the creation of a core file
                             containing an image of the process when the signal was received.
 WSTOPSIG(status):       If WIFSTOPPED(status) is true, evaluates to the number of the signal that caused the process to stop.
+
+struct rusage { /* see man getrusage */
+	struct timeval ru_utime;	/* user time used */
+	struct timeval ru_stime;	/* system time used */
+	long ru_maxrss;				/* max resident set size */
+	long ru_ixrss;				/* integral shared text memory size */
+	long ru_idrss;				/* integral unshared data size */
+	long ru_isrss;				/* integral unshared stack size */
+	long ru_minflt;				/* page reclaims */
+	long ru_majflt;				/* page faults */
+	long ru_nswap;				/* swaps */
+	long ru_inblock;			/* block input operations */
+	long ru_oublock;			/* block output operations */
+	long ru_msgsnd;				/* messages sent */
+	long ru_msgrcv;				/* messages received */
+	long ru_nsignals;			/* signals received */
+	long ru_nvcsw;				/* voluntary context switches */
+	long ru_nivcsw;				/* involuntary context switches */
+};
+
+If wait3(), wait4(), or waitpid() returns due to a stopped or terminated child process, the process ID of the child is returned to the calling process.
+If there are no children not previously awaited, -1 is returned with errno set to [ECHILD]. Otherwise, if WNOHANG is specified and there are no stopped or
+exited children, 0 is returned. If an error is detected or a caught signal aborts the call, a value of -1 is returned and errno is set to indicate the
+error.
 
 
 signal      sig_t signal(int sig, sig_t func);
