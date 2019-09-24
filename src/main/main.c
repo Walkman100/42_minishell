@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 15:49:15 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/24 12:35:42 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/24 14:24:53 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	path = get_path_from_envp(envp);
 	while (1)
 	{
-		show_prompt();
+		show_prompt(envp);
 		input = get_input();
 		userinput = parse_input(input);
 		if (userinput.is_builtin)
