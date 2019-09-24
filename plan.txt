@@ -1,3 +1,52 @@
+functions:
+	show prompt: use PS1 from env, parse escape sequences: man bash §PROMPTING
+	get input: allow keys to modify input - read 1 char at a time, output that char or do action
+																^D runs exit
+	parse input:
+	- is builtin?
+	- full path to program (search PATH)
+	- args
+	- redirections (<, >, >>)
+	- handle all variables
+	run program:
+	- if builtin, run function
+	- if program, run program(fork + execve)
+	  then use waitpid()
+	handle signals: ^C to kill, ^Z to suspend (maybe?)
+
+builtins:
+simple: echo, exit, clear
+cd: use chdir
+pwd: use getcwd
+
+setenv
+unsetenv
+env: use [un]setenv for setting, print env for no args
+									(list_to_array)
+
+
+int main(int argc, char **argv, char **envp)
+
+
+
+void show_prompt(void);
+char *get_input(void);
+t_userinput parse_input(char *userinput);
+char **list_to_array(char *env_var);
+char *get_path(char *program_name);
+run_program(char *program_path, t_userinput userinput);
+	wait_for_pid
+run_function(char *function, t_userinput userinput);
+
+
+t_userinput:
+program_name
+program_args
+is_builtin
+redirect_type
+
+
+
 allowed functions:
 malloc		void *malloc(size_t size);
 free		void free(void *ptr);
