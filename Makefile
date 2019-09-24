@@ -6,17 +6,18 @@
 #    By: mcarter <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/12 13:33:41 by mcarter           #+#    #+#              #
-#    Updated: 2019/09/24 13:08:13 by mcarter          ###   ########.fr        #
+#    Updated: 2019/09/24 15:01:20 by mcarter          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 GCCFLAGS = -Wall -Wextra -Werror
 NAME = minishell
-SRC = src/func/get_input.c src/func/get_path_from_envp.c src/func/get_path.c \
-		src/func/parse_input.c src/func/run_function.c src/func/run_program.c \
-		src/func/show_prompt.c src/func/wait_for_pid.c src/main/main.c
-OFILES = bin/get_input.o bin/get_path_from_envp.o bin/get_path.o \
-		bin/parse_input.o bin/run_function.o bin/run_program.o \
+SRC = src/func/get_envvar.c src/func/get_input.c src/func/get_path_from_envp.c \
+		src/func/get_path.c src/func/parse_input.c src/func/run_function.c \
+		src/func/run_program.c src/func/show_prompt.c src/func/wait_for_pid.c \
+		src/main/main.c
+OFILES = bin/get_envvar.o bin/get_input.o bin/get_path_from_envp.o \
+		bin/get_path.o bin/parse_input.o bin/run_function.o bin/run_program.o \
 		bin/show_prompt.o bin/wait_for_pid.o bin/main.o
 HFILE = src/minishell.h
 LFT = -L libft -lft
@@ -55,6 +56,10 @@ update:
 #  builtins/
 
 #  func/
+bin/get_envvar.o: $(HFILE) src/func/get_envvar.c
+	@mkdir -p bin
+	gcc $(GCCFLAGS) -c src/func/get_envvar.c -o bin/get_envvar.o
+
 bin/get_input.o: $(HFILE) src/func/get_input.c
 	@mkdir -p bin
 	gcc $(GCCFLAGS) -c src/func/get_input.c -o bin/get_input.o

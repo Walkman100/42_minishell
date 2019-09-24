@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 15:43:26 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/24 12:49:14 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/24 14:56:44 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_userinput
 	unsigned char	redirect_type : 2;
 }				t_userinput;
 
+char			*get_envvar(char **envp, char *varname);
 char			**get_path_from_envp(char **envp);
 void			show_prompt(void);
 char			*get_input(void);
