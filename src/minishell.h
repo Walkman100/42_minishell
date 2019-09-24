@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 15:43:26 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/16 17:33:11 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/24 12:49:14 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,21 @@
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 typedef struct rusage	t_rusage;
+
+typedef struct	s_userinput
+{
+	char			*program_name;
+	char			*program_args;
+	unsigned char	is_builtin : 1;
+	unsigned char	redirect_type : 2;
+}				t_userinput;
+
+char			**get_path_from_envp(char **envp);
+void			show_prompt(void);
+char			*get_input(void);
+t_userinput		parse_input(char *input);
+void			run_function(t_userinput userinput, char **envp);
+char			*get_path(char **path, char *program_name);
+pid_t			run_program(char *program_path, t_userinput userinput);
+void			wait_for_pid(pid_t pid);
 #endif
