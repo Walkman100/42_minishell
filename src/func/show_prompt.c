@@ -72,6 +72,11 @@ void	show_prompt(char **envp)
 				ft_putchar('\a');
 			else if (*ps1 == 'e')
 				ft_putchar('\e');
+			else if (ft_strnequ(ps1, "033", 3))
+			{
+				ft_putchar('\e');
+				ps1 += 2;
+			}
 			else if (*ps1 == 'n')
 				ft_putchar('\n');
 			else if (*ps1 == 'r')
