@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 15:49:15 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/24 14:24:53 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/25 12:01:59 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,24 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		show_prompt(envp);
-		input = get_input();
-		userinput = parse_input(input);
-		if (userinput.is_builtin)
+		if ((input = get_input()))
 		{
-			run_function(userinput, envp);
+			userinput = parse_input(input);
+			ft_strdel(&input);
+			if (userinput.is_builtin)
+			{
+				run_function(userinput, envp);
+			}
+			else
+			{
+				program_path = get_path(path, userinput.program_name);
+				wait_for_pid(run_program(program_path, userinput));
+			}
 		}
 		else
 		{
-			program_path = get_path(path, userinput.program_name);
-			wait_for_pid(run_program(program_path, userinput));
+			ft_putchar('\n');
+			break ;
 		}
 	}
 	return (0);

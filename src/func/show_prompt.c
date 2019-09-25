@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:45:39 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/24 15:04:42 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/25 12:16:02 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,25 @@
 
 void	put_hostname(char full_name)
 {
+	static char		hostname[1024];
+	unsigned int	i;
+
+	if (!*hostname)
+	{
+		hostname[1023] = '\0';
+		gethostname(hostname, 1023);
+	}
 	if (full_name)
-		system("hostname");
+		ft_putstr(hostname);
 	else
-		system("hostname -s");
+	{
+		i = 0;
+		while (hostname[i] != '\0' && hostname[i] != '.')
+		{
+			ft_putchar(hostname[i]);
+			i++;
+		}
+	}
 }
 
 void	put_username(char **envp)
@@ -30,6 +45,14 @@ void	put_cwd(char **envp)
 	ft_putstr(get_envvar(envp, "PWD="));
 }
 
+void	put_uidchar(void)
+{
+	if (geteuid())
+		ft_putchar('$');
+	else
+		ft_putchar('#');
+}
+
 void	show_prompt(char **envp)
 {
 	char	*ps1;
@@ -37,7 +60,7 @@ void	show_prompt(char **envp)
 	ps1 = get_envvar(envp, "PS1=");
 	if (!ps1)
 	{
-		ft_putstr("$ > ");
+		ft_putstr("MINISHELL $ > ");
 		return ;
 	}
 	while (*ps1)
@@ -63,8 +86,8 @@ void	show_prompt(char **envp)
 				put_username(envp);
 			else if (*ps1 == 'w')
 				put_cwd(envp); // cwd, $HOME to ~
-			// else if (*ps1 == '$')
-			// 	ft_putchar('\$'); // # if UID = 0, otherwise $
+			else if (*ps1 == '$')
+				put_uidchar();
 			else if (*ps1 == '[' || *ps1 == ']')
 				;
 			else
