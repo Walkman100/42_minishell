@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 15:43:26 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/25 14:19:06 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/25 14:49:59 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			wait_for_pid(pid_t pid);
 
 void			builtin_echo(char *args);
 void			builtin_exit(char *args);
-void			builtin_clear(char *args);
+void			builtin_clear(void);
 void			builtin_cd(char *args, char **envp);
 void			builtin_pwd(char *args);
 void			builtin_setenv(char *args, char **envp);

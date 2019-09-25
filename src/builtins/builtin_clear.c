@@ -6,13 +6,13 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:03:06 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/25 14:15:44 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:04:38 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	builtin_clear(char *args)
+void	builtin_clear(void)
 {
-	
+	ft_putstr("\ec");
 }
