@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:02:01 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/25 14:16:25 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/25 14:47:41 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 void	builtin_exit(char *args)
 {
-	
+	if (args)
+		exit(ft_atoi(args));
+	else
+		exit(EXIT_SUCCESS);
 }
