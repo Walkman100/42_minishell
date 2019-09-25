@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:59:42 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/25 13:53:32 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/25 14:10:32 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ void			replace_vars(char **str, char **envp)
 		varnamelen = 0;
 		while (ft_isalnum(varnamestart[varnamelen]))
 			varnamelen++;
-		tmpvarname = ft_strnew(varnamelen);
+		tmpvarname = ft_strnew(varnamelen + 1);
 		ft_strncpy(tmpvarname, varnamestart, varnamelen);
 		tmpvarname[varnamelen] = '=';
-		tmpvarcontents = get_envvar(envp, tmpvarname);
+		if (!(tmpvarcontents = get_envvar(envp, tmpvarname)))
+			tmpvarcontents = "";
 		newstr = ft_strnew(ft_strlen(*str) -
 							ft_strlen(tmpvarname) + ft_strlen(tmpvarcontents));
 		ft_strncpy(newstr, *str, ft_strclen(*str, '$'));
