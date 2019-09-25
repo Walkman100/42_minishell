@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 14:55:34 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/24 14:58:58 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/25 12:04:39 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ char	*get_envvar(char **envp, char *varname)
 		envp++;
 	if (!*envp)
 		return (NULL);
-	*envp += varnamelen;
-	return (*envp);
+	return ((*envp) + varnamelen);
 }
