@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 15:43:26 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/24 15:17:02 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/25 13:54:20 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char			*get_envvar(char **envp, char *varname);
 char			**get_path_from_envp(char **envp);
 void			show_prompt(char **envp);
 char			*get_input(void);
-t_userinput		parse_input(char *input);
+t_userinput		parse_input(char *input, char **envp);
 void			run_function(t_userinput userinput, char **envp);
 char			*get_path(char **path, char *program_name);
 pid_t			run_program(char *program_path, t_userinput userinput);

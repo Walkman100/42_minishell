@@ -25,8 +25,7 @@ int	main(int argc, char **argv, char **envp)
 		show_prompt(envp);
 		if ((input = get_input()))
 		{
-			userinput = parse_input(input);
-			ft_strdel(&input);
+			userinput = parse_input(input, envp);
 			if (userinput.is_builtin)
 			{
 				run_function(userinput, envp);
@@ -36,6 +35,7 @@ int	main(int argc, char **argv, char **envp)
 				program_path = get_path(path, userinput.program_name);
 				wait_for_pid(run_program(program_path, userinput));
 			}
+			ft_strdel(&input);
 		}
 		else
 		{
