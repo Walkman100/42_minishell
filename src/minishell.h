@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 15:43:26 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/26 15:58:38 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/26 18:59:10 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdio.h>
 # include <sys/types.h>
 # include <sys/uio.h>    /* ???? - in man 2 read */
 # include <dirent.h>
@@ -36,7 +37,7 @@ typedef struct	s_userinput
 }				t_userinput;
 
 char			*get_envvar(char **envp, char *varname);
-void			set_envvar(char **envp, char *varname, char *varvalue);
+void			set_envvar(char ***envp, char *varname, char *varvalue);
 char			**get_path_from_envp(char **envp);
 void			show_prompt(char **envp);
 char			*get_input(void);
