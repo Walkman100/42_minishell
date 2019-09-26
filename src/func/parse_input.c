@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:59:42 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/25 14:10:32 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/26 17:13:21 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 unsigned char	is_builtin(char *name)
 {
 	if (ft_strequ(name, "echo") || ft_strequ(name, "exit") ||
-		ft_strequ(name, "clear") || ft_strequ(name, "cd") ||
-		ft_strequ(name, "pwd") || ft_strequ(name, "setenv") ||
-		ft_strequ(name, "unsetenv") || ft_strequ(name, "env"))
+			ft_strequ(name, "clear") || ft_strequ(name, "cd") ||
+			ft_strequ(name, "pwd") || ft_strequ(name, "setenv") ||
+			ft_strequ(name, "unsetenv") || ft_strequ(name, "env") ||
+			ft_strequ(name, ".."))
 		return (1);
 	else
 		return (0);

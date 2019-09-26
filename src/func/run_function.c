@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:45:35 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/25 14:49:52 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/26 16:57:35 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	run_function(t_userinput userinput, char **envp)
 		builtin_clear();
 	else if (ft_strequ(userinput.program_name, "cd"))
 		builtin_cd(userinput.program_args, envp);
+	else if (ft_strequ(userinput.program_name, ".."))
+		builtin_cd("..", envp);
 	else if (ft_strequ(userinput.program_name, "pwd"))
 		builtin_pwd(userinput.program_args);
 	else if (ft_strequ(userinput.program_name, "setenv"))
