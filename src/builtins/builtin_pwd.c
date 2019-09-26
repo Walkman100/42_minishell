@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:03:45 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/25 14:16:39 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/26 16:56:22 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 
 void	builtin_pwd(char *args)
 {
-	
+	char	cwd[1024];
+
+	if (getcwd(cwd, 1023))
+		ft_putendl(cwd);
+	else
+		perror(args);
 }

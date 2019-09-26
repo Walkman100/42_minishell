@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:04:34 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/25 14:33:52 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/26 16:58:32 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	builtin_env(char *args, char **envp)
 	{
 		while (*envp)
 		{
-			ft_putstr(*envp);
-			ft_putchar('\n');
+			ft_putendl(*envp);
 			envp++;
 		}
 	}
