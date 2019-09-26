@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:03:31 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/26 19:29:24 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/26 19:38:44 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	builtin_cd(char *args, char **envp)
 	char	cwd[1024];
 
 	if (chdir(args))
+	{
+		ft_putstr("minishell: cd: ");
 		perror(args);
+	}
 	else if (getcwd(cwd, 1023))
 		set_envvar(&envp, "PWD=", cwd);
 }
