@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:04:20 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 14:38:28 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 15:37:04 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 void	builtin_unsetenv(char *args, char ***envp)
 {
 	MAXUNBR	varnamelen;
+	char	**oldenvp;
+	char	**tmpoldenvp;
+	char	**tmpnewenvp;
 	char	*varname;
 
 	if (args)
@@ -24,8 +27,18 @@ void	builtin_unsetenv(char *args, char ***envp)
 		varname[varnamelen] = '=';
 		if (get_envvar(*envp, varname))
 		{
-			set_envvar(envp, varname, "");
-			ft_strdel(&varname);
+			oldenvp = *envp;
+			tmpoldenvp = oldenvp;
+			*envp = ft_memalloc(sizeof(**envp) * ft_parrlen((void **)oldenvp));
+			tmpnewenvp = *envp;
+			while (*tmpoldenvp)
+			{
+				*tmpnewenvp = *tmpoldenvp;
+				tmpnewenvp++;
+				tmpoldenvp++;
+				if (ft_strnequ(*tmpoldenvp, varname, varnamelen + 1))
+					tmpoldenvp++;
+			}
 		}
 		else
 		{
