@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 15:49:15 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/26 22:22:53 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 13:07:06 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ void	init_envp(char ***envp, char **argv)
 	tmpenvp = ft_memalloc(sizeof(**envp) * (arrlen + 1));
 	ft_memcpy(tmpenvp, *envp, sizeof(**envp) * arrlen);
 	*envp = tmpenvp;
+	while (*tmpenvp)
+	{
+		*tmpenvp = ft_strdup(*tmpenvp);
+		tmpenvp++;
+	}
 	set_envvar(envp, "SHELL=", *argv);
 	set_envvar(envp, "BASH=", *argv);
-	set_envvar(envp, "_=", "");
 	if (getcwd(cwd, 1023))
-	{
-		set_envvar(envp, "OLDPWD=", "");
 		set_envvar(envp, "PWD=", cwd);
-	}
 }
 
 int		main(int argc, char **argv, char **envp)
@@ -46,10 +47,10 @@ int		main(int argc, char **argv, char **envp)
 		show_prompt(envp);
 		if ((input = get_input()))
 		{
-			userinput = parse_input(input, envp);
+			userinput = parse_input(input, &envp);
 			if (userinput.is_builtin)
 			{
-				run_function(userinput, envp);
+				run_function(userinput, &envp);
 			}
 			else
 			{

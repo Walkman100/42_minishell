@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 15:43:26 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/26 18:59:10 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 12:38:54 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void			set_envvar(char ***envp, char *varname, char *varvalue);
 char			**get_path_from_envp(char **envp);
 void			show_prompt(char **envp);
 char			*get_input(void);
-t_userinput		parse_input(char *input, char **envp);
-void			run_function(t_userinput userinput, char **envp);
+t_userinput		parse_input(char *input, char ***envp);
+void			run_function(t_userinput userinput, char ***envp);
 char			*get_path(char **path, char *program_name);
 pid_t			run_program(char *program_path, t_userinput userinput);
 void			wait_for_pid(pid_t pid);
@@ -50,9 +50,9 @@ void			wait_for_pid(pid_t pid);
 void			builtin_echo(char *args);
 void			builtin_exit(char *args);
 void			builtin_clear(void);
-void			builtin_cd(char *args, char **envp);
+void			builtin_cd(char *args, char ***envp);
 void			builtin_pwd(char *args);
-void			builtin_setenv(char *args, char **envp);
-void			builtin_unsetenv(char *args, char **envp);
-void			builtin_env(char *args, char **envp);
+void			builtin_setenv(char *args, char ***envp);
+void			builtin_unsetenv(char *args, char ***envp);
+void			builtin_env(char *args, char ***envp);
 #endif

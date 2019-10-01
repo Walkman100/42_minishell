@@ -6,13 +6,13 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:45:35 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/26 16:57:35 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 12:17:21 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	run_function(t_userinput userinput, char **envp)
+void	run_function(t_userinput userinput, char ***envp)
 {
 	if (ft_strequ(userinput.program_name, "echo"))
 		builtin_echo(userinput.program_args);
