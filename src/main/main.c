@@ -6,13 +6,13 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 15:49:15 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/26 19:27:29 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/26 22:22:53 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	init_envp(char ***envp)
+void	init_envp(char ***envp, char **argv)
 {
 	MAXUNBR			arrlen;
 	char			**tmpenvp;
@@ -22,10 +22,14 @@ void	init_envp(char ***envp)
 	tmpenvp = ft_memalloc(sizeof(**envp) * (arrlen + 1));
 	ft_memcpy(tmpenvp, *envp, sizeof(**envp) * arrlen);
 	*envp = tmpenvp;
-	set_envvar(envp, "SHELL=", "minishell");
-	set_envvar(envp, "BASH=", "minishell");
+	set_envvar(envp, "SHELL=", *argv);
+	set_envvar(envp, "BASH=", *argv);
+	set_envvar(envp, "_=", "");
 	if (getcwd(cwd, 1023))
+	{
+		set_envvar(envp, "OLDPWD=", "");
 		set_envvar(envp, "PWD=", cwd);
+	}
 }
 
 int		main(int argc, char **argv, char **envp)
@@ -35,7 +39,7 @@ int		main(int argc, char **argv, char **envp)
 	char		**path;
 	char		*program_path;
 
-	init_envp(&envp);
+	init_envp(&envp, argv);
 	path = get_path_from_envp(envp);
 	while (1)
 	{
@@ -43,7 +47,6 @@ int		main(int argc, char **argv, char **envp)
 		if ((input = get_input()))
 		{
 			userinput = parse_input(input, envp);
-			set_envvar(&envp, "_=", userinput.program_name);
 			if (userinput.is_builtin)
 			{
 				run_function(userinput, envp);
@@ -57,7 +60,7 @@ int		main(int argc, char **argv, char **envp)
 		}
 		else
 		{
-			ft_putchar('\n');
+			ft_putstr("exit\n");
 			break ;
 		}
 	}

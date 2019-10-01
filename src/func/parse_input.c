@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:59:42 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/26 22:20:15 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/26 22:20:16 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_userinput		parse_input(char *input, char **envp)
 	separator_pos = ft_strclen(input, ' ');
 	rtn.program_name = ft_strsub(input, 0, separator_pos);
 	replace_vars(&(rtn.program_name), envp);
+	set_envvar(&envp, "_=", rtn.program_name);
 	if (ft_strchr(input, ' '))
 	{
 		rtn.program_args = ft_strdup(input + separator_pos + 1);
