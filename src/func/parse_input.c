@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:59:42 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/26 17:13:21 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/09/26 22:20:15 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void			replace_vars(char **str, char **envp)
 	{
 		varnamestart++;
 		varnamelen = 0;
-		while (ft_isalnum(varnamestart[varnamelen]))
+		while (ft_isalnum(varnamestart[varnamelen]) || varnamestart[varnamelen] == '_')
 			varnamelen++;
 		tmpvarname = ft_strnew(varnamelen + 1);
 		ft_strncpy(tmpvarname, varnamestart, varnamelen);
