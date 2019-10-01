@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 15:43:26 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 12:38:54 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 13:31:14 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ void			run_function(t_userinput userinput, char ***envp);
 char			*get_path(char **path, char *program_name);
 pid_t			run_program(char *program_path, t_userinput userinput);
 void			wait_for_pid(pid_t pid);
+void			free_envp(char ***envp);
 
 void			builtin_echo(char *args);
-void			builtin_exit(char *args);
+void			builtin_exit(char *args, char ***envp);
 void			builtin_clear(void);
 void			builtin_cd(char *args, char ***envp);
 void			builtin_pwd(char *args);

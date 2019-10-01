@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 15:49:15 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 13:07:06 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 13:30:40 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,13 @@ int		main(int argc, char **argv, char **envp)
 					wait_for_pid(run_program(program_path, userinput));
 			}
 			ft_strdel(&input);
+			ft_strdel(&(userinput.program_name));
+			ft_strdel(&(userinput.program_args));
 		}
 		else
 		{
 			ft_putstr("exit\n");
+			free_envp(&envp);
 			break ;
 		}
 	}

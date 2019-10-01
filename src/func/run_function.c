@@ -17,7 +17,7 @@ void	run_function(t_userinput userinput, char ***envp)
 	if (ft_strequ(userinput.program_name, "echo"))
 		builtin_echo(userinput.program_args);
 	else if (ft_strequ(userinput.program_name, "exit"))
-		builtin_exit(userinput.program_args);
+		builtin_exit(userinput.program_args, envp);
 	else if (ft_strequ(userinput.program_name, "clear"))
 		builtin_clear();
 	else if (ft_strequ(userinput.program_name, "cd"))
