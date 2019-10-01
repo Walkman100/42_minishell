@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:45:39 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 15:38:05 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 16:31:45 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	put_hostname(char full_name)
 
 void	put_username(char **envp)
 {
-	ft_putstr(get_envvar(envp, "USER="));
+	ft_putstr(envvar_get(envp, "USER="));
 }
 
 void	put_cwd(char **envp)
 {
-	ft_putstr(get_envvar(envp, "PWD="));
+	ft_putstr(envvar_get(envp, "PWD="));
 }
 
 void	put_uidchar(void)
@@ -57,7 +57,7 @@ void	show_prompt(char **envp)
 {
 	char	*ps1;
 
-	ps1 = get_envvar(envp, "PS1=");
+	ps1 = envvar_get(envp, "PS1=");
 	if (!ps1)
 	{
 		ft_putstr("MSH $ > ");

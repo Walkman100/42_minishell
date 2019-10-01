@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_envvar.c                                       :+:      :+:    :+:   */
+/*   envvar_get.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/24 14:55:34 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/25 12:04:39 by mcarter          ###   ########.fr       */
+/*   Created: 2019/10/01 15:50:18 by mcarter           #+#    #+#             */
+/*   Updated: 2019/10/01 15:55:14 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_envvar(char **envp, char *varname)
+char	*envvar_get(char **envp, char *varname)
 {
 	int	varnamelen;
 

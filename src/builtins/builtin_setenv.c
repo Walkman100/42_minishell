@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:04:03 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 14:46:26 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 16:33:15 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	builtin_setenv(char *args, char ***envp)
 		splitpos = ft_strclen(args, '=') + 1;
 		varname = ft_strsub(args, 0, splitpos);
 		args += splitpos;
-		set_envvar(envp, varname, args);
+		envvar_set(envp, varname, args);
 		ft_strdel(&varname);
 	}
 	else if (args && ft_strchr(args, ' '))
@@ -31,7 +31,7 @@ void	builtin_setenv(char *args, char ***envp)
 		varname = ft_strsub(args, 0, splitpos);
 		varname[splitpos - 1] = '=';
 		args += splitpos;
-		set_envvar(envp, varname, args);
+		envvar_set(envp, varname, args);
 		ft_strdel(&varname);
 	}
 	else

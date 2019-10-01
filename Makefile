@@ -6,7 +6,7 @@
 #    By: mcarter <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/12 13:33:41 by mcarter           #+#    #+#              #
-#    Updated: 2019/10/01 12:47:28 by mcarter          ###   ########.fr        #
+#    Updated: 2019/10/01 16:30:03 by mcarter          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,18 +16,18 @@ SRC = src/builtins/builtin_cd.c src/builtins/builtin_clear.c \
 		src/builtins/builtin_echo.c src/builtins/builtin_env.c \
 		src/builtins/builtin_exit.c src/builtins/builtin_pwd.c \
 		src/builtins/builtin_setenv.c src/builtins/builtin_unsetenv.c \
-		src/func/get_envvar.c src/func/get_input.c \
-		src/func/get_path_from_envp.c src/func/get_path.c \
-		src/func/parse_input.c src/func/run_function.c src/func/run_program.c \
-		src/func/set_envvar.c src/func/show_prompt.c src/func/wait_for_pid.c \
+		src/env/envp_init.c src/env/envvar_del.c src/env/envvar_get.c \
+		src/env/envvar_set.c src/func/get_input.c src/func/get_path_from_envp.c \
+		src/func/get_path.c src/func/parse_input.c src/func/run_function.c \
+		src/func/run_program.c src/func/show_prompt.c src/func/wait_for_pid.c \
 		src/main/free.c src/main/main.c
 OFILES = bin/builtin_cd.o bin/builtin_clear.o bin/builtin_echo.o \
 		bin/builtin_env.o bin/builtin_exit.o bin/builtin_pwd.o \
-		bin/builtin_setenv.o bin/builtin_unsetenv.o bin/get_envvar.o \
-		bin/get_input.o bin/get_path_from_envp.o bin/get_path.o \
-		bin/parse_input.o bin/run_function.o bin/run_program.o \
-		bin/set_envvar.o bin/show_prompt.o bin/wait_for_pid.o bin/free.o \
-		bin/main.o
+		bin/builtin_setenv.o bin/builtin_unsetenv.o bin/envp_init.o \
+		bin/envvar_del.o bin/envvar_get.o bin/envvar_set.o bin/get_input.o \
+		bin/get_path_from_envp.o bin/get_path.o bin/parse_input.o \
+		bin/run_function.o bin/run_program.o bin/show_prompt.o \
+		bin/wait_for_pid.o bin/free.o bin/main.o
 HFILE = src/minishell.h
 LFT = -L libft -lft
 LFTA = libft/libft.a
@@ -95,11 +95,24 @@ bin/builtin_unsetenv.o: $(HFILE) src/builtins/builtin_unsetenv.c
 	@mkdir -p bin
 	gcc $(GCCFLAGS) -c src/builtins/builtin_unsetenv.c -o bin/builtin_unsetenv.o
 
-#  func/
-bin/get_envvar.o: $(HFILE) src/func/get_envvar.c
+#  env/
+bin/envp_init.o: $(HFILE) src/env/envp_init.c
 	@mkdir -p bin
-	gcc $(GCCFLAGS) -c src/func/get_envvar.c -o bin/get_envvar.o
+	gcc $(GCCFLAGS) -c src/env/envp_init.c -o bin/envp_init.o
 
+bin/envvar_del.o: $(HFILE) src/env/envvar_del.c
+	@mkdir -p bin
+	gcc $(GCCFLAGS) -c src/env/envvar_del.c -o bin/envvar_del.o
+
+bin/envvar_get.o: $(HFILE) src/env/envvar_get.c
+	@mkdir -p bin
+	gcc $(GCCFLAGS) -c src/env/envvar_get.c -o bin/envvar_get.o
+
+bin/envvar_set.o: $(HFILE) src/env/envvar_set.c
+	@mkdir -p bin
+	gcc $(GCCFLAGS) -c src/env/envvar_set.c -o bin/envvar_set.o
+
+#  func/
 bin/get_input.o: $(HFILE) src/func/get_input.c
 	@mkdir -p bin
 	gcc $(GCCFLAGS) -c src/func/get_input.c -o bin/get_input.o
@@ -123,10 +136,6 @@ bin/run_function.o: $(HFILE) src/func/run_function.c
 bin/run_program.o: $(HFILE) src/func/run_program.c
 	@mkdir -p bin
 	gcc $(GCCFLAGS) -c src/func/run_program.c -o bin/run_program.o
-
-bin/set_envvar.o: $(HFILE) src/func/set_envvar.c
-	@mkdir -p bin
-	gcc $(GCCFLAGS) -c src/func/set_envvar.c -o bin/set_envvar.o
 
 bin/show_prompt.o: $(HFILE) src/func/show_prompt.c
 	@mkdir -p bin

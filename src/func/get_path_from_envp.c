@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:04:42 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/24 15:06:49 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 16:33:45 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**get_path_from_envp(char **envp)
 	MAXUNBR	curr_len;
 	MAXUNBR	i;
 
-	path_var = get_envvar(envp, "PATH=");
+	path_var = envvar_get(envp, "PATH=");
 	if (!path_var)
 	{
 		path_arr = ft_memalloc(1);

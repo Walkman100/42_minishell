@@ -6,32 +6,11 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 15:49:15 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 13:30:40 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 17:12:31 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	init_envp(char ***envp, char **argv)
-{
-	MAXUNBR			arrlen;
-	char			**tmpenvp;
-	char			cwd[1024];
-
-	arrlen = ft_parrlen((void **)*envp);
-	tmpenvp = ft_memalloc(sizeof(**envp) * (arrlen + 1));
-	ft_memcpy(tmpenvp, *envp, sizeof(**envp) * arrlen);
-	*envp = tmpenvp;
-	while (*tmpenvp)
-	{
-		*tmpenvp = ft_strdup(*tmpenvp);
-		tmpenvp++;
-	}
-	set_envvar(envp, "SHELL=", *argv);
-	set_envvar(envp, "BASH=", *argv);
-	if (getcwd(cwd, 1023))
-		set_envvar(envp, "PWD=", cwd);
-}
 
 int		main(int argc, char **argv, char **envp)
 {
@@ -40,7 +19,7 @@ int		main(int argc, char **argv, char **envp)
 	char		**path;
 	char		*program_path;
 
-	init_envp(&envp, argv);
+	envp_init(&envp, argv);
 	path = get_path_from_envp(envp);
 	while (1)
 	{
