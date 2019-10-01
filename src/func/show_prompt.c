@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:45:39 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/25 12:16:02 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 15:38:05 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	show_prompt(char **envp)
 	ps1 = get_envvar(envp, "PS1=");
 	if (!ps1)
 	{
-		ft_putstr("MINISHELL $ > ");
+		ft_putstr("MSH $ > ");
 		return ;
 	}
 	while (*ps1)

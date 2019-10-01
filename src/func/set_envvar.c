@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 16:00:01 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 11:55:10 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 14:42:17 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	set_envvar(char ***envp, char *varname, char *varvalue)
 {
-	int		varnamelen;
+	MAXUNBR	varnamelen;
 	char	**tmpenvp;
 	char	*newvar;
 

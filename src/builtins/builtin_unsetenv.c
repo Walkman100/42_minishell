@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:04:20 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 15:37:04 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 15:45:32 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,8 @@ void	builtin_unsetenv(char *args, char ***envp)
 			}
 		}
 		else
-		{
-			ft_putstr("minishell: unsetenv: variable '");
-			ft_putstr(args);
-			ft_putendl("' does not exist");
-		}
+			ft_printf("minishell: unsetenv: variable '%s' does not exist\n", \
+																		args);
 	}
 	else
 		ft_putendl("unsetenv usage: unsetenv <envvar>");
