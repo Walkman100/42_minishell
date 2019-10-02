@@ -6,7 +6,7 @@
 #    By: mcarter <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/12 13:33:41 by mcarter           #+#    #+#              #
-#    Updated: 2019/10/01 16:30:03 by mcarter          ###   ########.fr        #
+#    Updated: 2019/10/02 10:54:17 by mcarter          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(NAME): $(LFTA) $(OFILES) $(HFILE)
 	gcc $(GCCFLAGS) $(OFILES) $(LFT) -o $(NAME)
 
 $(HFILE): libft/libft.h
-$(LFTA): libft/libft.h
+$(LFTA): libft/libft.h libft/*.c
 	make -C libft
 libft/libft.h:
 	@git submodule update --init
