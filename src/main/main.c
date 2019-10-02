@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 15:49:15 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 17:12:31 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/02 11:24:04 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		main(int argc, char **argv, char **envp)
 			else
 			{
 				if ((program_path = get_path(path, userinput.program_name)))
-					wait_for_pid(run_program(program_path, userinput));
+					wait_for_pid(run_program(program_path, userinput, envp));
 			}
 			ft_strdel(&input);
 			ft_strdel(&(userinput.program_name));
