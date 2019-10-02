@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:45:33 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/24 12:48:52 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/01 16:51:34 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 char	*get_path(char **path, char *program_name)
 {
-	return ("");
+	return (program_name);
 }
