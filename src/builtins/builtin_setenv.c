@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:04:03 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 16:33:15 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/21 15:00:42 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	builtin_setenv(char *args, char ***envp)
 	MAXUNBR	splitpos;
 	char	*varname;
 
+	while (args && *args == ' ')
+		args++;
 	if (args && ft_strchr(args, '='))
 	{
 		splitpos = ft_strclen(args, '=') + 1;

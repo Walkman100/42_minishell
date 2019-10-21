@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:03:45 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/26 19:30:37 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/21 15:00:03 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,5 @@ void	builtin_pwd(char *args)
 	if (getcwd(cwd, 1023))
 		ft_putendl(cwd);
 	else
-	{
-		ft_putstr("minishell: pwd: ");
-		perror(args);
-	}
+		perror("minishell: pwd: ");
 }

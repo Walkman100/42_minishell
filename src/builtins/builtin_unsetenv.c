@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:04:20 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 16:34:27 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/21 15:00:51 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	builtin_unsetenv(char *args, char ***envp)
 	MAXUNBR	varnamelen;
 	char	*varname;
 
+	while (args && *args == ' ')
+		args++;
 	if (args)
 	{
 		varnamelen = ft_strlen(args);
