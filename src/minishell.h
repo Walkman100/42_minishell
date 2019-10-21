@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 15:43:26 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/02 13:29:02 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/21 15:07:23 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void			builtin_echo(char *args);
 void			builtin_exit(char *args, char ***envp);
 void			builtin_clear(void);
 void			builtin_cd(char *args, char ***envp);
-void			builtin_pwd(char *args);
+void			builtin_pwd(void);
 void			builtin_setenv(char *args, char ***envp);
 void			builtin_unsetenv(char *args, char ***envp);
 void			builtin_env(char *args, char ***envp);
