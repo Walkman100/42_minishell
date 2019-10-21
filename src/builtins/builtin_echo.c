@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:01:02 by mcarter           #+#    #+#             */
-/*   Updated: 2019/09/25 14:31:18 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/21 14:49:11 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	builtin_echo(char *args)
 	char	print_newline;
 
 	print_newline = 1;
-	if (*args == '-')
+	if (args && *args == '-')
 	{
 		args++;
 		while (*args && *args != ' ')
@@ -34,7 +34,7 @@ void	builtin_echo(char *args)
 			args++;
 		}
 	}
-	while (*args == ' ')
+	while (args && *args == ' ')
 		args++;
 	ft_putstr(args);
 	if (print_newline)
