@@ -16,30 +16,61 @@ functions:
 		- then use waitpid()
 	handle signals: ^C to kill, ^Z to suspend (maybe?)
 
-builtins:
-simple: echo, exit, clear
-cd: use chdir
-pwd: use getcwd
-
-setenv
-unsetenv
-env: use [un]setenv for setting, print env for no args
-									(list_to_array)
-
-void show_prompt(void);
-char *get_input(void);
-t_userinput parse_input(char *userinput);
-char **list_to_array(char *env_var);
-char *get_path(char *program_name);
-run_program(char *program_path, t_userinput userinput);
-	wait_for_pid
-run_function(char *function, t_userinput userinput);
-
 t_userinput:
 program_name
 program_args
 is_builtin
 redirect_type
+
+
+current structure:
+minishell functions:			libft functions:								system functions:
+main:							ft_strdel, ft_putstr
+	envp_init					ft_parrlen, ft_memalloc, ft_memcpy, ft_strdup	getcwd
+		envvar_set
+	get_path_from_envp			ft_memalloc, ft_chrcount, ft_strclen, ft_strsub, ft_strdup
+		envvar_get
+	show_prompt					ft_putstr, ft_putchar, ft_strnequ
+		envvar_get
+		put_hostname			ft_putstr, ft_putchar							gethostname
+		put_username			ft_putstr
+			envvar_get
+		put_cwd					ft_putstr
+			envvar_get
+		put_uidchar				ft_putchar										geteuid
+	get_input					get_next_line
+	parse_input					ft_strclen, ft_strsub, ft_strchr, ft_strdup, ft_strstr
+		replace_vars			ft_strchr, ft_isalnum, ft_strnew, ft_strncpy, ft_strlen, ft_strclen, ft_strcat, ft_strdel
+			envvar_get
+		envvar_set
+		is_builtin				ft_strequ
+	run_function				ft_strequ
+		builtin_echo			ft_putstr, ft_putchar
+		builtin_exit			ft_atoi											exit
+			free_envp
+		builtin_clear			ft_putstr
+		builtin_cd																getcwd, chdir, perror
+			envvar_get
+			envvar_set
+		builtin_pwd				ft_putendl										getcwd, perror
+		builtin_setenv			ft_strchr, ft_strclen, ft_strsub, ft_strdel, ft_putendl
+			envvar_set
+		builtin_unsetenv		ft_strlen, ft_strsub, ft_printf, ft_putendl
+			envvar_get
+			envvar_del
+		builtin_env				ft_strchr, ft_putendl
+			builtin_setenv
+			parse_input
+			get_path_from_envp
+			get_path
+			run_program
+			wait_for_pid
+	get_path					ft_strjoin3
+		check_folder_for_file	ft_strequ								opendir, readdir, closedir
+	run_program					ft_chrcount, ft_strsplit, ft_putendl, ft_realloc, ft_memmove, ft_memalloc, ft_putstr
+																		exit, fork, execve, perror
+	wait_for_pid														waitpid, perror
+	free_envp					ft_strdel, ft_memdel
 
 
 allowed functions:
@@ -69,13 +100,3 @@ wait4		pid_t wait4(pid_t pid, int *stat_loc, int options, struct rusage *rusage)
 signal		sig_t signal(int sig, sig_t func);
 kill		int kill(pid_t pid, int sig);
 exit		void exit(int status);
-
-must implement builtins:
-echo
-cd
-setenv
-unsetenv
-env
-exit
-
-must manage expansions: $ and ~
