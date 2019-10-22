@@ -35,7 +35,7 @@ main:							ft_strdel, ft_putstr
 		put_hostname			ft_putstr, ft_putchar							gethostname
 		put_username			ft_putstr
 			envvar_get
-		put_cwd					ft_putstr
+		put_cwd					ft_strlen, ft_strnequ, ft_memmove, ft_putstr
 			envvar_get
 		put_uidchar				ft_putchar										geteuid
 	get_input					get_next_line

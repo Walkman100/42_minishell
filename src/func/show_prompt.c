@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:45:39 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 16:31:45 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/22 15:16:34 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,23 @@ void	put_username(char **envp)
 
 void	put_cwd(char **envp)
 {
-	ft_putstr(envvar_get(envp, "PWD="));
+	char	*pwd;
+	char	*home;
+	MAXUNBR	homelen;
+
+	pwd = envvar_get(envp, "PWD=");
+	if (!pwd)
+		pwd = "";
+	home = envvar_get(envp, "HOME=");
+	if (!home)
+		home = "";
+	homelen = ft_strlen(home);
+	if (ft_strnequ(pwd, home, homelen))
+	{
+		pwd[0] = '~';
+		ft_memmove(pwd + 1, pwd + homelen, ft_strlen(pwd) - homelen + 1);
+	}
+	ft_putstr(pwd);
 }
 
 void	put_uidchar(void)

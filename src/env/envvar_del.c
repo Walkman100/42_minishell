@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 15:50:34 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 16:50:09 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/22 15:27:29 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	envvar_del(char ***envp, char *varname)
 	char	**tmpoldenvp;
 	char	**tmpnewenvp;
 
-	ft_putendl("started");
-	ft_putendl(varname);
 	varnamelen = ft_strlen(varname);
 	oldenvp = *envp;
 	tmpoldenvp = oldenvp;
