@@ -72,6 +72,11 @@ main:							ft_strdel, ft_putstr
 	wait_for_pid														waitpid, perror
 	free_envp					ft_strdel, ft_memdel
 
+envvar_del						ft_strlen, ft_memalloc, ft_parrlen, ft_strnequ, ft_strdel, MEMDEL (ft_memdel)
+envvar_get						ft_strlen, ft_strnequ
+envvar_set						ft_strlen, ft_strnew, ft_strcpy, ft_strcat, ft_strnequ, ft_strdel
+	envvar_add					ft_realloc, ft_parrlen
+
 
 allowed functions:
 malloc		void *malloc(size_t size);
