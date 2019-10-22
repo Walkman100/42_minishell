@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:59:42 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/01 16:32:49 by mcarter          ###   ########.fr       */
+/*   Updated: 2019/10/22 14:53:59 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ void			replace_vars(char **str, char **envp)
 		ft_strcat(newstr, tmpvarcontents);
 		ft_strcat(newstr, varnamestart + varnamelen);
 		ft_strdel(&tmpvarname);
+		ft_strdel(str);
+		*str = newstr;
+	}
+	while ((varnamestart = ft_strchr(*str, '~')))
+	{
+		if (!(tmpvarcontents = envvar_get(envp, "HOME=")))
+			tmpvarcontents = "";
+		newstr = ft_strnew(ft_strlen(*str) + ft_strlen(tmpvarcontents) - 1);
+		ft_strncpy(newstr, *str, ft_strclen(*str, '~'));
+		ft_strcat(newstr, tmpvarcontents);
+		ft_strcat(newstr, varnamestart + 1);
 		ft_strdel(str);
 		*str = newstr;
 	}
