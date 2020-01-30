@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:59:42 by mcarter           #+#    #+#             */
-/*   Updated: 2020/01/29 15:38:39 by mcarter          ###   ########.fr       */
+/*   Updated: 2020/01/30 14:30:01 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ unsigned char	is_builtin(char *name)
 		return (0);
 }
 
-void			replace_vars(char **str, char **envp)
+char			*str_replace_envvar(char *str, char **envp)
 {
 	char			*varnamestart;
 	unsigned int	varnamelen;
@@ -32,24 +32,35 @@ void			replace_vars(char **str, char **envp)
 	char			*tmpvarcontents;
 	char			*newstr;
 
-	while ((varnamestart = ft_strchr(*str, '$')))
+	varnamestart = ft_strchr(str, '$');
+	varnamestart++;
+	varnamelen = 0;
+	while (ft_isalnum(varnamestart[varnamelen]) ||
+												varnamestart[varnamelen] == '_')
+		varnamelen++;
+	tmpvarname = ft_strnew(varnamelen + 1);
+	ft_strncpy(tmpvarname, varnamestart, varnamelen);
+	tmpvarname[varnamelen] = '=';
+	if (!(tmpvarcontents = envvar_get(envp, tmpvarname)))
+		tmpvarcontents = "";
+	newstr = ft_strnew(ft_strlen(str) - ft_strlen(tmpvarname) +
+												ft_strlen(tmpvarcontents));
+	ft_strncpy(newstr, str, ft_strclen(str, '$'));
+	ft_strcat(newstr, tmpvarcontents);
+	ft_strcat(newstr, varnamestart + varnamelen);
+	ft_strdel(&tmpvarname);
+	return (newstr);
+}
+
+void			replace_vars(char **str, char **envp)
+{
+	char			*varnamestart;
+	char			*tmpvarcontents;
+	char			*newstr;
+
+	while (ft_strchr(*str, '$'))
 	{
-		varnamestart++;
-		varnamelen = 0;
-		while (ft_isalnum(varnamestart[varnamelen]) ||
-				varnamestart[varnamelen] == '_')
-			varnamelen++;
-		tmpvarname = ft_strnew(varnamelen + 1);
-		ft_strncpy(tmpvarname, varnamestart, varnamelen);
-		tmpvarname[varnamelen] = '=';
-		if (!(tmpvarcontents = envvar_get(envp, tmpvarname)))
-			tmpvarcontents = "";
-		newstr = ft_strnew(ft_strlen(*str) -
-							ft_strlen(tmpvarname) + ft_strlen(tmpvarcontents));
-		ft_strncpy(newstr, *str, ft_strclen(*str, '$'));
-		ft_strcat(newstr, tmpvarcontents);
-		ft_strcat(newstr, varnamestart + varnamelen);
-		ft_strdel(&tmpvarname);
+		newstr = str_replace_envvar(*str, envp);
 		ft_strdel(str);
 		*str = newstr;
 	}
