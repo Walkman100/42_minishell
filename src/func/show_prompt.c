@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:45:39 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/22 15:16:34 by mcarter          ###   ########.fr       */
+/*   Updated: 2020/01/30 11:44:50 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	put_cwd(char **envp)
 		pwd = "";
 	home = envvar_get(envp, "HOME=");
 	if (!home)
-		home = "";
+		home = "NOTAVALUE";
 	homelen = ft_strlen(home);
 	if (ft_strnequ(pwd, home, homelen))
 	{
@@ -75,10 +75,7 @@ void	show_prompt(char **envp)
 
 	ps1 = envvar_get(envp, "PS1=");
 	if (!ps1)
-	{
-		ft_putstr("MSH $ > ");
-		return ;
-	}
+		return (ft_putstr("MSH $ > "));
 	while (*ps1)
 	{
 		if (*ps1 == '\\')
@@ -106,7 +103,7 @@ void	show_prompt(char **envp)
 			else if (*ps1 == 'u')
 				put_username(envp);
 			else if (*ps1 == 'w')
-				put_cwd(envp); // cwd, $HOME to ~
+				put_cwd(envp);
 			else if (*ps1 == '$')
 				put_uidchar();
 			else if (*ps1 == '[' || *ps1 == ']')
