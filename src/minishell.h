@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 15:43:26 by mcarter           #+#    #+#             */
-/*   Updated: 2020/01/29 15:37:13 by mcarter          ###   ########.fr       */
+/*   Updated: 2020/01/30 12:12:45 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,9 @@ void			builtin_pwd(void);
 void			builtin_setenv(char *args, char ***envp);
 void			builtin_unsetenv(char *args, char ***envp);
 void			builtin_env(char *args, char ***envp);
+
+void			put_error(int errno_local, char *message, char *debug, \
+					const char *caller_name);
+void			exit_msg(int errno_local, char *message, char *debug, \
+					const char *caller_name);
 #endif

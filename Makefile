@@ -6,7 +6,7 @@
 #    By: mcarter <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/12 13:33:41 by mcarter           #+#    #+#              #
-#    Updated: 2019/10/02 10:54:17 by mcarter          ###   ########.fr        #
+#    Updated: 2020/01/30 12:05:07 by mcarter          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,14 +20,14 @@ SRC = src/builtins/builtin_cd.c src/builtins/builtin_clear.c \
 		src/env/envvar_set.c src/func/get_input.c src/func/get_path_from_envp.c \
 		src/func/get_path.c src/func/parse_input.c src/func/run_function.c \
 		src/func/run_program.c src/func/show_prompt.c src/func/wait_for_pid.c \
-		src/main/free.c src/main/main.c
+		src/main/errors.c src/main/free.c src/main/main.c
 OFILES = bin/builtin_cd.o bin/builtin_clear.o bin/builtin_echo.o \
 		bin/builtin_env.o bin/builtin_exit.o bin/builtin_pwd.o \
 		bin/builtin_setenv.o bin/builtin_unsetenv.o bin/envp_init.o \
 		bin/envvar_del.o bin/envvar_get.o bin/envvar_set.o bin/get_input.o \
 		bin/get_path_from_envp.o bin/get_path.o bin/parse_input.o \
 		bin/run_function.o bin/run_program.o bin/show_prompt.o \
-		bin/wait_for_pid.o bin/free.o bin/main.o
+		bin/wait_for_pid.o bin/errors.o bin/free.o bin/main.o
 HFILE = src/minishell.h
 LFT = -L libft -lft
 LFTA = libft/libft.a
@@ -146,6 +146,10 @@ bin/wait_for_pid.o: $(HFILE) src/func/wait_for_pid.c
 	gcc $(GCCFLAGS) -c src/func/wait_for_pid.c -o bin/wait_for_pid.o
 
 #  main/
+bin/errors.o: $(HFILE) src/main/errors.c
+	@mkdir -p bin
+	gcc $(GCCFLAGS) -c src/main/errors.c -o bin/errors.o
+
 bin/free.o: $(HFILE) src/main/free.c
 	@mkdir -p bin
 	gcc $(GCCFLAGS) -c src/main/free.c -o bin/free.o

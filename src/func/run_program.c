@@ -6,7 +6,7 @@
 /*   By: mcarter <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 12:45:32 by mcarter           #+#    #+#             */
-/*   Updated: 2019/10/02 11:15:01 by mcarter          ###   ########.fr       */
+/*   Updated: 2020/01/30 12:18:29 by mcarter          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ pid_t	run_program(char *program_path, t_userinput userinput, char **envp)
 	{
 		avcount = ft_chrcount(userinput.program_args, ' ') + 1;
 		if (!(argv = ft_strsplit(userinput.program_args, ' ')))
-		{
-			ft_putendl("Out of memory!");
-			exit(EXIT_FAILURE);
-		}
+			exit_msg(ENOMEM, "", "ft_strsplit ", __func__);
 		argv = ft_realloc(argv, sizeof(*argv) * (avcount + 2));
 		ft_memmove(argv + 1, argv, sizeof(*argv) * (avcount + 1));
 	}
@@ -35,10 +32,7 @@ pid_t	run_program(char *program_path, t_userinput userinput, char **envp)
 	if ((rtn = fork()) == 0)
 	{
 		if (execve(program_path, argv, envp))
-		{
-			ft_putstr("minishell: ");
-			perror(program_path);
-		}
+			exit_msg(errno, program_path, "execve ", __func__);
 		exit(EXIT_FAILURE);
 	}
 	else
